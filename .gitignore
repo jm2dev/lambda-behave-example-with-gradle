@@ -1,0 +1,5 @@
+README.html
+build/
+*.iml
+.gradle/
+.idea/

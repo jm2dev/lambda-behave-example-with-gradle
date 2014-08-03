@@ -1,0 +1,27 @@
+Lambda Behave Example
+=====================
+:Author: José Miguel
+:Date: August 3rd, 2014
+:Revision: 1.0
+
+Description
+-----------
+
+http://richardwarburton.github.io/lambda-behave/[Lambda Behave] is a framework to help you write tests as specifications for Java 8, the way you may have seen with other languages.
+
+This project is just a setup to use it in gradle.
+
+Requirements
+------------
+
+- http://openjdk.java.net/[Java 8]
+- http://www.gradle.org[Gradle 2]
+
+Usage
+-----
+
+.Build
+[source,bash]
+----
+gradle build
+----  

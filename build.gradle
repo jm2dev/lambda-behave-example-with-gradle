@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'pmd'
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'project-report'
+apply plugin: 'build-dashboard'
+apply plugin: 'checkstyle'
+
+sourceCompatibility = 1.8
+version = '1.0-SNAPSHOT'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Lambda Behave Example'
+        attributes 'Implementation-Version': version
+        attributes 'Main-Class': 'com.jm2dev.app.LambdaBehaveExample'
+    }
+
+    // remove the security files (from mail.jar / activation.jar) so that the jar will be executable.
+    doFirst {
+        from (configurations.runtime.resolve().collect { it.isDirectory() ? it : zipTree(it) }) {
+            exclude 'META-INF/MANIFEST.MF'
+            exclude 'META-INF/*.SF'
+            exclude 'META-INF/*.DSA'
+            exclude 'META-INF/*.RSA'
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:0.9.0-M3"
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    checkstyle 'com.puppycrawl.tools:checkstyle:5.6'
+
+    testCompile group: 'com.insightfullogic', name: 'lambda-behave', version: '0.2'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
+checkstyle {
+    sourceSets = [sourceSets.main]
+}
+
+javadoc {
+    title = "Lambda Behave Example"
+}
+
+test {
+    systemProperties 'property': 'value'
+}
